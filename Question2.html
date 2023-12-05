@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Details</title>
+    <script>
+        function calculateLoan() {
+            // Get input values
+            var employeeId = document.getElementById("employeeId").value;
+            var designation = document.getElementById("designation").value;
+            var loanAmount = parseFloat(document.getElementById("loanAmount").value);
+            var dateOfLoan = new Date(document.getElementById("dateOfLoan").value);
+            
+            // Check employee ID
+            if (employeeId.length < 4 || !employeeId.startsWith("E")) {
+                alert("Invalid Employee ID. It must be at least four characters and start with 'E'.");
+                return;
+            }
+ 
+            // Calculate interest based on designation
+            var interestRate = 0;
+            switch (designation.toLowerCase()) {
+                case "manager":
+                    interestRate = 0.1;
+                    break;
+                case "developer":
+                    interestRate = 0.08;
+                    break;
+                // Add more cases for other designations as needed
+                default:
+                    interestRate = 0.05;
+            }
+ 
+            // Calculate loan amount and interest
+            var interest = loanAmount * interestRate;
+            var totalAmountPayable = loanAmount + interest;
+ 
+            // Display results
+            document.getElementById("result").innerHTML = "Loan Amount: $" + loanAmount.toFixed(2) +
+                "<br>Interest Payable: $" + interest.toFixed(2) +
+                "<br>Total Amount Payable: $" + totalAmountPayable.toFixed(2);
+        }
+    </script>
+</head>
+<body>
+    <h1>Loan Details</h1>
+    <form>
+        Employee ID: <input type="text" id="employeeId" required><br>
+        Designation: <input type="text" id="designation" required><br>
+        Loan Amount: <input type="number" id="loanAmount" required><br>
+        Date of Loan: <input type="date" id="dateOfLoan" required><br>
+        <button type="button" onclick="calculateLoan()">Calculate</button>
+    </form>
+ 
+    <div id="result"></div>
+</body>
+</html>
